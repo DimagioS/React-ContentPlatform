@@ -1,9 +1,9 @@
 import { Suspense } from "react";
 import { Route, Routes, Link } from "react-router-dom";
-import { useTheme } from "./theme/useTheme";
-import { classNames } from "./helpers/classNames/classNames";
-import MainPage from "./pages/MainPage";
-import AboutPage from "./pages/AboutPage";
+import { useTheme } from "./providers/ThemeProvider/lib/useTheme";
+import { classNames } from "shared/lib/classNames/classNames";
+import { MainPage } from "pages/MainPage";
+import { AboutPage } from "pages/AboutPage";
 import './styles/index.scss'
 
 const App = () => {

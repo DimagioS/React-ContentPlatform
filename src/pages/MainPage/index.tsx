@@ -1,3 +1,1 @@
-import {MainPageAsync} from "./MainPage.async";
-
-export default MainPageAsync;
+export { MainPageAsync as MainPage } from "./ui/MainPage.async";
