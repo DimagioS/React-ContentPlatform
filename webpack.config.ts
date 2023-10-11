@@ -11,7 +11,7 @@ export default (env: BuildEnv) => {
     }
     
     const mode: BuildMode = env.mode || 'development';
-    const port = env.port || 3000;
+    const port: number = env.port || 3000;
 
     const isDev: boolean = mode === 'development';
 
