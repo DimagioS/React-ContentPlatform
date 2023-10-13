@@ -9,10 +9,9 @@ const App = () => {
 
   return (
     <div className={classNames('app', {}, [theme])}>
-    <Navbar />
-    <AppRouter />
-    <button onClick={toggleTheme}>TOGGLE</button>
-</div>
+      <Navbar />
+      <AppRouter />
+    </div>
   )
 }
 
