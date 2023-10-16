@@ -19,6 +19,17 @@ export function buildLoaders(options: BuildOptions): webpack.RuleSetRule[] {
     use: ['@svgr/webpack']
   }
 
+  const babelLoader = {
+    test: /\.(jsx?|tsx?)$/,
+    exclude: /node_modules/,
+    use: {
+      loader: 'babel-loader',
+      options: {
+        presets: ['@babel/preset-env'],
+      },
+    },
+  };
+
   // this loader can process jsx, otherwise babel would be needed
   const typescriptLoader = {
     test: /\.tsx?$/,
@@ -48,6 +59,7 @@ export function buildLoaders(options: BuildOptions): webpack.RuleSetRule[] {
   return [
     fileLoader,
     svgLoader,
+    babelLoader,
     typescriptLoader,
     cssLoader,
   ]
