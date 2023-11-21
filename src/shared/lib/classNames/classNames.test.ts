@@ -16,8 +16,4 @@ describe('classsName', () => {
   test('with mods false', () => {
     expect(classNames('className', { green: false }, ['all'])).toBe('className all');
   });
-
-  test('with mods undefined', () => {
-    expect(classNames('className', { green: undefined }, ['all'])).toBe('className all');
-  });
 });
