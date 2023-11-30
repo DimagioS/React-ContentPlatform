@@ -1,15 +1,15 @@
 import { fireEvent, screen } from '@testing-library/react';
-import { renderWithTranslation } from 'shared/lib/tests/renderWithTranslation';
+import { componentRender } from 'shared/config/tests/componentRender/componentRender';
 import { Sidebar } from './Sidebar';
 
 describe('Sidebar', () => {
   test('Test render', () => {
-    renderWithTranslation(<Sidebar />);
+    componentRender(<Sidebar />);
     expect(screen.getByTestId('sidebar')).toBeInTheDocument();
   });
 
   test('Add class', () => {
-    renderWithTranslation(<Sidebar />);
+    componentRender(<Sidebar />);
     const btn = screen.getByTestId('sidebar-btn');
     const sidebar = screen.getByTestId('sidebar');
 
