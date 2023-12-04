@@ -4,10 +4,9 @@ import { Navbar } from 'widgets/Navbar';
 import { Sidebar } from 'widgets/Sidebar';
 import { useTheme } from './providers/ThemeProvider/lib/useTheme';
 import AppRouter from './providers/router/ui/AppRouter';
-import './styles/index.scss';
 
 const App = () => {
-  const { theme, toggleTheme } = useTheme();
+  const { theme } = useTheme();
 
   return (
     <div className={classNames('app', {}, [theme])}>
