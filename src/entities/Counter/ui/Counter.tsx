@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from 'shared/ui/Button';
-import { counterAction } from '../models/slice/CounterSlice';
+import { counterAction } from '../models/slice/counterSlice';
 import { getCounterValue } from '../models/selectors/getCounterValue/getCounterValue';
 
 export const Counter = () => {
@@ -17,11 +17,11 @@ export const Counter = () => {
 
   return (
     <div>
-      <h1>{counterValue}</h1>
-      <Button onClick={increment}>
+      <h1 data-testid="value-title">{counterValue}</h1>
+      <Button data-testid="increment-btn" onClick={increment}>
         increment
       </Button>
-      <Button onClick={decrement}>
+      <Button data-testid="decrement-btn" onClick={decrement}>
         decrement
       </Button>
     </div>
