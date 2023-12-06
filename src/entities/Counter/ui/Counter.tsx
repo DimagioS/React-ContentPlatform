@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from 'shared/ui/Button';
 import { useTranslation } from 'react-i18next';
-import { counterAction } from '../models/slice/counterSlice';
+import { counterActions } from '../models/slice/counterSlice';
 import { getCounterValue } from '../models/selectors/getCounterValue/getCounterValue';
 
 export const Counter = () => {
@@ -10,21 +10,21 @@ export const Counter = () => {
   const counterValue = useSelector(getCounterValue);
 
   const increment = () => {
-    dispatch(counterAction.increment());
+    dispatch(counterActions.increment());
   };
 
   const decrement = () => {
-    dispatch(counterAction.decrement());
+    dispatch(counterActions.decrement());
   };
 
   return (
     <div>
       <h1 data-testid="value-title">{counterValue}</h1>
       <Button data-testid="increment-btn" onClick={increment}>
-        {t('increment')}
+        {t('Увелечение')}
       </Button>
       <Button data-testid="decrement-btn" onClick={decrement}>
-        {t('decrement')}
+        {t('Уменьшение')}
       </Button>
     </div>
   );
