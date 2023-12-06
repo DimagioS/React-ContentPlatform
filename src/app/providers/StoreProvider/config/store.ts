@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { counterReducer } from 'entities/Counter/models/slice/counterSlice';
+import { counterReducer } from 'entities/Counter';
 import { StateSchema } from './StateSchema';
 
 // Creates and returns a new instance of the Redux store.
