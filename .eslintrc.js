@@ -43,7 +43,7 @@ module.exports = {
     'import/no-extraneous-dependencies': 'off',
     'no-underscore-dangle': 'off',
     'react/jsx-no-bind': 'off',
-    'i18next/no-literal-string': ['error', { markupOnly: true, ignoreAttribute: ['data-testid', 'to'] }],
+    'i18next/no-literal-string': ['error', { markupOnly: true, ignoreAttribute: ['data-testid', 'to', 'name'] }],
     'linebreak-style': 'off',
     'max-len': 'off',
     'jsx-a11y/no-static-element-interactions': 'off',

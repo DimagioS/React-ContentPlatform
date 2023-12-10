@@ -1,0 +1,21 @@
+.LoginForm {
+  min-width: 400px;
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+  
+  input {
+    outline: none;
+    border: none;
+    background: var(--bg-color);
+    color: transparent;
+    text-shadow: 0 0 0 var(--primary-color);
+
+    &:focus {
+      outline: none;
+    }
+  }
+}

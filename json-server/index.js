@@ -9,7 +9,7 @@ const router = jsonServer.router(path.resolve(__dirname, 'db.json'));
 server.use(jsonServer.defaults({}));
 server.use(jsonServer.bodyParser);
 
-// Нужно для небольшой задержки, чтобы запрос проходил не мгновенно, имитация реального апи
+// Needed for a slight delay to ensure the request doesn't proceed instantly, simulating a real API.
 server.use(async (req, res, next) => {
   await new Promise((res) => {
     setTimeout(res, 800);
@@ -17,7 +17,7 @@ server.use(async (req, res, next) => {
   next();
 });
 
-// Эндпоинт для логина
+// "Endpoint for login.
 server.post('/login', (req, res) => {
   try {
     const { username, password } = req.body;
@@ -39,7 +39,7 @@ server.post('/login', (req, res) => {
   }
 });
 
-// проверяем, авторизован ли пользователь
+// Checking if the user is authenticated.
 // eslint-disable-next-line
 server.use((req, res, next) => {
   if (!req.headers.authorization) {
@@ -51,7 +51,7 @@ server.use((req, res, next) => {
 
 server.use(router);
 
-// запуск сервера
+// Starting the server.
 server.listen(8000, () => {
   console.log('server is running on 8000 port');
 });

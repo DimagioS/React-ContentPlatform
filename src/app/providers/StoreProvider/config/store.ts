@@ -1,5 +1,6 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { ReducersMapObject, configureStore } from '@reduxjs/toolkit';
 import { counterReducer } from 'entities/Counter';
+import { userReducer } from 'entities/User';
 import { StateSchema } from './StateSchema';
 
 // Creates and returns a new instance of the Redux store.
@@ -8,10 +9,13 @@ import { StateSchema } from './StateSchema';
 // with other parts of the application, such as Storybook.
 
 export function createReduxStore(initialState: StateSchema) {
+  const rootReducer: ReducersMapObject<StateSchema> = {
+    counter: counterReducer,
+    user: userReducer,
+  };
+
   return configureStore<StateSchema>({
-    reducer: {
-      counter: counterReducer,
-    },
+    reducer: rootReducer,
     devTools: __IS_DEV__,
     preloadedState: initialState,
   });

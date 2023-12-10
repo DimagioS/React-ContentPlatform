@@ -12,5 +12,7 @@
   "Войти": "Sign in",
   "Изменить": "Toggle",
   "Увелечение": "Increment",
-  "Уменьшение": "Decrement"
+  "Уменьшение": "Decrement",
+  "Имя пользователя": "User name",
+  "Пароль": "Password"
 }
