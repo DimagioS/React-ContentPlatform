@@ -10,9 +10,12 @@
   "Главнaя": "Home",
   "О сайте": "About us",
   "Войти": "Sign in",
+  "Выйти": "Sign out",
   "Изменить": "Toggle",
   "Увелечение": "Increment",
   "Уменьшение": "Decrement",
   "Имя пользователя": "User name",
-  "Пароль": "Password"
+  "Пароль": "Password",
+  "Форма авторизации": "Auth form",
+  "Вы ввели неверный логин и пароль": "Uncorrect username or password"
 }

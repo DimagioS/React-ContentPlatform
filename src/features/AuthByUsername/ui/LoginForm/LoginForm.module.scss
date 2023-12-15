@@ -1,5 +1,10 @@
 .LoginForm {
   min-width: 400px;
+
+  .loginBtn {
+    display: flex;
+    justify-content: flex-end;
+  }
 }
 
 .inputs {

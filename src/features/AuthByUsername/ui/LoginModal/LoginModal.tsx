@@ -1,6 +1,6 @@
-import { FC } from 'react';
 import { classNames } from 'shared/lib/classNames/classNames';
 import Modal from 'shared/ui/Modal';
+import { LoginForm } from '../LoginForm/LoginForm';
 
 interface LoginModalProps {
   className?: string;
@@ -8,10 +8,9 @@ interface LoginModalProps {
   onClose: () => void;
 }
 
-export const LoginModal: FC<LoginModalProps> = (props) => {
+export const LoginModal = (props: LoginModalProps) => {
   const {
     className,
-    children,
     isOpen,
     onClose,
   } = props;
@@ -19,7 +18,7 @@ export const LoginModal: FC<LoginModalProps> = (props) => {
   return (
     <div className={classNames('', {}, [className])}>
       <Modal isOpen={isOpen} onClose={onClose} lazy>
-        {children}
+        <LoginForm />
       </Modal>
     </div>
   );
