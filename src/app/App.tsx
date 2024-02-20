@@ -4,6 +4,7 @@ import { Navbar } from 'widgets/Navbar';
 import { Sidebar } from 'widgets/Sidebar';
 import { useDispatch } from 'react-redux';
 import { userActions } from 'entities/User';
+import { USER_LOCALSTORAGE_KEY } from 'features/AuthByUsername/modal/const/localstorage';
 import { useTheme } from './providers/ThemeProvider/lib/useTheme';
 import AppRouter from './providers/router/ui/AppRouter';
 
@@ -12,7 +13,11 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(userActions.initAuthData());
+    const user = localStorage.getItem(USER_LOCALSTORAGE_KEY);
+
+    if (user) {
+      dispatch(userActions.initAuthData(user));
+    }
   }, [dispatch]);
 
   return (

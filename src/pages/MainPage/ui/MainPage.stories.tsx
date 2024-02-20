@@ -2,7 +2,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { Theme } from 'app/providers/ThemeProvider/lib/ThemeContext';
 import { themeDecorator } from 'shared/config/storybook/decorators/themeDecorator';
 import { storeDecorator } from 'shared/config/storybook/decorators/storeDecorator';
-import { MainPage } from '..';
+import MainPage from './MainPage';
 
 export default {
   title: 'pages/MainPage',

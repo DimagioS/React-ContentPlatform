@@ -3,13 +3,13 @@ import { Button, ButtonTheme } from './Button';
 
 describe('Button', () => {
   test('Test render', () => {
-    // Рендерим компонент
+    // Render component
     render(<Button>TEST</Button>);
 
     expect(screen.getByText('TEST')).toBeInTheDocument();
   });
 
-  test('Test  with theme', () => {
+  test('Test with theme', () => {
     render(<Button theme={ButtonTheme.CLEAR}>TEST</Button>);
     expect(screen.getByText('TEST')).toHaveClass('clear');
     screen.debug();
