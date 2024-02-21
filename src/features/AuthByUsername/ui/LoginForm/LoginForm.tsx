@@ -11,10 +11,10 @@ import { DynamicModuleLoader } from 'shared/lib/components';
 import { ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { loginByUsername } from '../../modal/services/loginByUsername/loginByUsername';
 import { loginActions, loginReducer } from '../../modal/slice/loginSlice';
-import { getLoginStateUsername } from '../../modal/selectors/getLoginUsername/getLoginUsername';
-import { getLoginStateError } from '../../modal/selectors/getLoginError/getLoginError';
-import { getLoginStatePassword } from '../../modal/selectors/getLoginPassword/getLoginPassword';
-import { getLoginStateIsLoading } from '../../modal/selectors/getLoginIsLoading/getLoginIsLoading';
+import { getLoginUsername } from '../../modal/selectors/getLoginUsername/getLoginUsername';
+import { getLoginError } from '../../modal/selectors/getLoginError/getLoginError';
+import { getLoginPassword } from '../../modal/selectors/getLoginPassword/getLoginPassword';
+import { getLoginIsLoading } from '../../modal/selectors/getLoginIsLoading/getLoginIsLoading';
 import styles from './LoginForm.module.scss';
 
 interface LoginFormProps {
@@ -24,10 +24,10 @@ interface LoginFormProps {
 const LoginForm = memo(({ className }: LoginFormProps) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const username = useSelector(getLoginStateUsername);
-  const password = useSelector(getLoginStatePassword);
-  const isLoading = useSelector(getLoginStateIsLoading);
-  const error = useSelector(getLoginStateError);
+  const username = useSelector(getLoginUsername);
+  const password = useSelector(getLoginPassword);
+  const isLoading = useSelector(getLoginIsLoading);
+  const error = useSelector(getLoginError);
 
   const initialReducers: ReducersList = {
     loginForm: loginReducer,
