@@ -1,24 +1,20 @@
-import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
+/* eslint-disable react/button-has-type */
+import { memo, useState } from 'react';
 import { Button } from 'shared/ui/Button';
 import { ThemeSwitcher } from 'widgets/ThemeSwitcher';
 import { LangSwitcher } from 'widgets/LangSwitcher';
 import { classNames } from 'shared/lib/classNames/classNames';
-import { AppLink } from 'shared/ui/AppLink';
-import { AppLinkTheme } from 'shared/ui/AppLink/ui/AppLink';
-import { RoutePath } from 'shared/config/routeConfig/routeConfig';
-import MainPageIcon from 'shared/assets/icons/main-20-20.svg';
-import AboutPageIcon from 'shared/assets/icons/about-20-20.svg';
 import { ButtonSize, ButtonTheme } from 'shared/ui/Button/ui/Button';
+import { SidebarItemsList } from 'widgets/Sidebar/model/items';
+import { SidebarItem } from '../SidebarItem/SidebarItem';
 import styles from './Sidebar.module.scss';
 
 interface SidebarProps {
   className?: string;
 }
 
-export const Sidebar = ({ className }: SidebarProps) => {
+export const Sidebar = memo(({ className }: SidebarProps) => {
   const [collapsed, setCollapsed] = useState(false);
-  const { t } = useTranslation();
 
   const onToggle = () => {
     setCollapsed((prev) => !prev);
@@ -30,22 +26,13 @@ export const Sidebar = ({ className }: SidebarProps) => {
       className={classNames(styles.Sidebar, { [styles.collapsed]: collapsed }, [className])}
     >
       <div className={styles.links}>
-        <AppLink
-          theme={AppLinkTheme.SECONDARY}
-          to={RoutePath.main}
-          className={styles.linkItem}
-        >
-          <MainPageIcon />
-          <span>{t('Главнaя')}</span>
-        </AppLink>
-        <AppLink
-          theme={AppLinkTheme.RED}
-          to={RoutePath.about}
-          className={styles.linkItem}
-        >
-          <AboutPageIcon />
-          <span>{t('О сайте')}</span>
-        </AppLink>
+        {SidebarItemsList.map((item) => (
+          <SidebarItem
+            key={item.path}
+            item={item}
+            collapsed={collapsed}
+          />
+        ))}
       </div>
 
       <Button
@@ -65,4 +52,4 @@ export const Sidebar = ({ className }: SidebarProps) => {
       </div>
     </div>
   );
-};
+});

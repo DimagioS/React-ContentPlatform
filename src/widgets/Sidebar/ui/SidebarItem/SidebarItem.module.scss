@@ -1,0 +1,22 @@
+.linkItem {
+  display: flex;
+  align-items: center;
+  fill: var(--inverted-primary-color);
+
+  &:not(:last-child) {
+    margin-bottom: 10px;
+  }
+
+  span {
+    opacity: 1;
+    margin-left: 10px;
+  }
+}
+
+.collapsed.linkItem {
+  span {
+    opacity: 0;
+    transition: 0.2s opacity;
+    width: 0;
+  }
+}

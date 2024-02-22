@@ -1,9 +1,9 @@
-import { Suspense } from 'react';
+import { Suspense, memo } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { RouteConfig } from 'shared/config/routeConfig/routeConfig';
 import { PageLoader } from 'widgets/PageLoader';
 
-const AppRouter = () => (
+const AppRouter = memo(() => (
   <Routes>
     {
       Object.values(RouteConfig).map(({ path, element }) => (
@@ -21,6 +21,6 @@ const AppRouter = () => (
       ))
     }
   </Routes>
-);
+));
 
 export default AppRouter;

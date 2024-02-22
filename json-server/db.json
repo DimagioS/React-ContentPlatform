@@ -26,6 +26,13 @@
     }
   ],
   "profile": {
-    "name": "typicode"
+    "first": "Dimagio",
+    "lastname": "Florenzi",
+    "age": "25",
+    "currency": "RUB",
+    "country": "Russia",
+    "city": "Belgorod",
+    "username": "admin",
+    "avatar": "https://quasi-art.ru/data/images/works/it-cat.jpg"
   }
 }
