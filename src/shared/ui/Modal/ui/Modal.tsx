@@ -1,7 +1,7 @@
 import React, {
-  FC, ReactNode, useCallback, useEffect, useRef, useState,
+  FC, MutableRefObject, ReactNode, useCallback, useEffect, useRef, useState,
 } from 'react';
-import { classNames } from 'shared/lib/classNames/classNames';
+import { Mods, classNames } from 'shared/lib/classNames/classNames';
 import Portal from 'shared/ui/Portal';
 import styles from './Modal.module.scss';
 
@@ -24,11 +24,11 @@ export const Modal: FC<ModalProps> = (props) => {
 
   const [isClosing, setIsClosing] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
-  const timerRef = useRef<ReturnType<typeof setTimeout>>();
+  const timerRef = useRef() as MutableRefObject<ReturnType<typeof setTimeout>>;
 
   const ANIMATION_DELAY = 400;
 
-  const mods: Record<string, boolean> = {
+  const mods: Mods = {
     [styles.opened]: isOpen,
     [styles.closed]: isClosing,
   };

@@ -12,22 +12,23 @@ export default ({ config }: { config: webpack.Configuration }) => {
     src: path.resolve(__dirname, '..', '..', 'src'),
   };
 
-  config.resolve.modules.push(paths.src);
-  config.resolve.extensions.push('.tsx', '.ts');
+  config!.resolve!.modules!.push(paths.src);
+  config!.resolve!.extensions!.push('.tsx', '.ts');
 
   // This customizes the rules to exclude default SVG processing by existing rules, and adds a new rule to use '@svgr/webpack', which allows importing SVGs as React components.
   // eslint-disable-next-line no-param-reassign
-  config.module.rules = config.module.rules.map((rule: RuleSetRule) => {
+  // @ts-ignore
+  config!.module!.rules = config!.module!.rules!.map((rule: RuleSetRule) => {
     if (/svg/.test(rule.test as string)) {
       return { ...rule, exclude: /\.svg$/i };
     }
 
     return rule;
   });
-  config.module.rules.push(buildSvgLoader());
-  config.module.rules.push(buildCssLoader(true));
+  config!.module!.rules.push(buildSvgLoader());
+  config!.module!.rules.push(buildCssLoader(true));
 
-  config.plugins.push(new webpack.DefinePlugin({
+  config!.plugins!.push(new webpack.DefinePlugin({
     __IS_DEV__: JSON.stringify(true),
     __API__: JSON.stringify(''),
   }));
