@@ -1,4 +1,16 @@
 {
 	"Ваше имя": "Your name",
-	"Ваша фамилия": "Your last name"
+	"Ваша фамилия": "Your last name",
+	"Ваш никнейм": "Your nickname",
+	"Ваш возраст": "Your age",
+	"Город": "City",
+	"Изображение": "Image",
+	"Валюта": "Currency",
+	"Страна": "Country",
+	"Редактировать": "Edit",
+	"Профиль": "Profile",
+	"Отмена": "Cancel",
+	"Сохранить": "Save",
+	"Произошла ошибка при загрузку данных": "An error occurred while loading data",
+	"Перезагрузите страницу": "Reload the page"
 }

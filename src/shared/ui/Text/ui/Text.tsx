@@ -2,6 +2,12 @@ import { memo } from 'react';
 import { classNames } from 'shared/lib/classNames/classNames';
 import styles from './Text.module.scss';
 
+export enum TextAlign {
+  CENTER = 'center',
+  LEFT = 'left',
+  RIGHT = 'right'
+}
+
 export enum TextTheme {
   PRIMARY = 'primary',
   ERROR = 'error'
@@ -12,6 +18,7 @@ interface TextProps {
   title?: string;
   text?: string;
   theme?: TextTheme;
+  align?: TextAlign;
 }
 
 export const Text = memo((props: TextProps) => {
@@ -20,10 +27,11 @@ export const Text = memo((props: TextProps) => {
     title,
     text,
     theme = TextTheme.PRIMARY,
+    align = TextAlign.LEFT,
   } = props;
 
   return (
-    <div className={classNames(styles.Text, {}, [className, styles[theme]])}>
+    <div className={classNames(styles.Text, {}, [className, styles[theme], styles[align]])}>
       {title && <p className={styles.title}>{title}</p>}
       {text && <p className={styles.text}>{text}</p>}
     </div>
