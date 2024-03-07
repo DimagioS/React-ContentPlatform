@@ -1,5 +1,6 @@
-import { profileActions } from 'entities/Profile';
-import { updateProfileData } from 'entities/Profile/model/services/updateProfileData/updateProfileData';
+import {
+  profileActions, updateProfileData,
+} from 'entities/Profile';
 import { memo, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { classNames } from 'shared/lib/classNames/classNames';

@@ -12,5 +12,9 @@
 	"Отмена": "Cancel",
 	"Сохранить": "Save",
 	"Произошла ошибка при загрузку данных": "An error occurred while loading data",
-	"Перезагрузите страницу": "Reload the page"
+	"Перезагрузите страницу": "Reload the page",
+	"Имя и фамилия обязательны": "First and last name are required",
+	"Некорректный возраст": "Incorrect age",
+	"Данные не указаны": "Data not provided",
+	"Серверная ошибка при сохранении": "Server error when saving"
 }
