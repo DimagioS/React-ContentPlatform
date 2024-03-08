@@ -1,7 +1,7 @@
 name: Frontend CI
 on: 
   push:
-    branches: [ main, development, feature/**,  enhance/**, refactor/**, bugfix/** ]
+    branches: [ main, development, feature/**,  enhance/**, refactor/**, bugfix/**, test/** ]
   pull_request:
     branches: [ development ]
 jobs:
