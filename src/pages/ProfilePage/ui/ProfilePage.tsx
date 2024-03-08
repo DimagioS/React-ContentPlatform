@@ -1,7 +1,14 @@
 import { memo, useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import {
-  ProfileCard, ValidateProfileErrors, fetchProfileData, getProfileError, getProfileForm, getProfileIsLoading, getProfileReadonly, getValidateErrors,
+  ProfileCard,
+  ValidateProfileErrors,
+  fetchProfileData,
+  getProfileError,
+  getProfileForm,
+  getProfileIsLoading,
+  getProfileReadonly,
+  getProfileValidateErrors,
 } from 'entities/Profile';
 import { profileActions, profileReducer } from 'entities/Profile/model/slice/profileSlice';
 import { DynamicModuleLoader } from 'shared/lib/components';
@@ -22,7 +29,7 @@ const ProfilePage = memo(() => {
   const isLoading = useSelector(getProfileIsLoading);
   const error = useSelector(getProfileError);
   const readonly = useSelector(getProfileReadonly);
-  const validateErrors = useSelector(getValidateErrors);
+  const validateErrors = useSelector(getProfileValidateErrors);
 
   const initialReducers: ReducersList = {
     profile: profileReducer,
@@ -36,7 +43,9 @@ const ProfilePage = memo(() => {
   };
 
   useEffect(() => {
-    dispatch(fetchProfileData());
+    if (__PROJECT__ !== 'storybook') {
+      dispatch(fetchProfileData());
+    }
   }, [dispatch]);
 
   const onChangefirst = useCallback((value?: string) => {
