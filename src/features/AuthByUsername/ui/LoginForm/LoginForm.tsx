@@ -10,12 +10,12 @@ import { TextTheme } from 'shared/ui/Text/ui/Text';
 import { DynamicModuleLoader } from 'shared/lib/components';
 import { ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch';
-import { loginByUsername } from '../../modal/services/loginByUsername/loginByUsername';
-import { loginActions, loginReducer } from '../../modal/slice/loginSlice';
-import { getLoginUsername } from '../../modal/selectors/getLoginUsername/getLoginUsername';
-import { getLoginError } from '../../modal/selectors/getLoginError/getLoginError';
-import { getLoginPassword } from '../../modal/selectors/getLoginPassword/getLoginPassword';
-import { getLoginIsLoading } from '../../modal/selectors/getLoginIsLoading/getLoginIsLoading';
+import { loginByUsername } from '../../model/services/loginByUsername/loginByUsername';
+import { loginActions, loginReducer } from '../../model/slice/loginSlice';
+import { getLoginUsername } from '../../model/selectors/getLoginUsername/getLoginUsername';
+import { getLoginError } from '../../model/selectors/getLoginError/getLoginError';
+import { getLoginPassword } from '../../model/selectors/getLoginPassword/getLoginPassword';
+import { getLoginIsLoading } from '../../model/selectors/getLoginIsLoading/getLoginIsLoading';
 import styles from './LoginForm.module.scss';
 
 interface LoginFormProps {

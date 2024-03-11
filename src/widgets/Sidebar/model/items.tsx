@@ -4,6 +4,7 @@ import { AppLinkTheme } from 'shared/ui/AppLink/ui/AppLink';
 import MainPageIcon from 'shared/assets/icons/main-20-20.svg';
 import AboutPageIcon from 'shared/assets/icons/about-20-20.svg';
 import ProfilePageIcon from 'shared/assets/icons/profile-20-20.svg';
+import ArticlesPageIcon from 'shared/assets/icons/article-page-20-20.svg';
 
 export type SidebarItemType = {
   path: string,
@@ -28,6 +29,12 @@ export const SidebarItemsList: SidebarItemType[] = [
     path: RoutePath.profile,
     text: 'Профиль',
     Icon: ProfilePageIcon,
+    authOnly: true,
+  },
+  {
+    path: RoutePath.articles,
+    text: 'Статьи',
+    Icon: ArticlesPageIcon,
     authOnly: true,
   },
 ];

@@ -2,8 +2,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Button } from 'shared/ui/Button';
 import { useTranslation } from 'react-i18next';
 import { memo } from 'react';
-import { counterActions } from '../models/slice/counterSlice';
-import { getCounterValue } from '../models/selectors/getCounterValue/getCounterValue';
+import { getCounterValue } from '../model/selectors/getCounterValue/getCounterValue';
+import { counterActions } from '../model/slice/counterSlice';
 
 export const Counter = memo(() => {
   const { t } = useTranslation();
