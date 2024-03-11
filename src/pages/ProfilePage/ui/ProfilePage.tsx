@@ -44,8 +44,11 @@ const ProfilePage = memo(() => {
 
   useEffect(() => {
     if (__PROJECT__ !== 'storybook') {
+      console.log(error);
+
       dispatch(fetchProfileData());
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
   const onChangefirst = useCallback((value?: string) => {

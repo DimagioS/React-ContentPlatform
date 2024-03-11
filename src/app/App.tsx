@@ -2,22 +2,18 @@ import { Suspense, useEffect } from 'react';
 import { classNames } from 'shared/lib/classNames/classNames';
 import { Navbar } from 'widgets/Navbar';
 import { Sidebar } from 'widgets/Sidebar';
-import { useDispatch } from 'react-redux';
-import { userActions } from 'entities/User';
-import { USER_LOCALSTORAGE_KEY } from 'features/AuthByUsername/modal/const/localstorage';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUserInited, userActions } from 'entities/User';
 import { useTheme } from './providers/ThemeProvider/lib/useTheme';
 import AppRouter from './providers/router/ui/AppRouter';
 
 const App = () => {
   const { theme } = useTheme();
   const dispatch = useDispatch();
+  const inited = useSelector(getUserInited);
 
   useEffect(() => {
-    const user = localStorage.getItem(USER_LOCALSTORAGE_KEY);
-
-    if (user) {
-      dispatch(userActions.initAuthData(user));
-    }
+    dispatch(userActions.initAuthData());
   }, [dispatch]);
 
   return (
@@ -26,7 +22,7 @@ const App = () => {
         <Navbar />
         <div className="content-page">
           <Sidebar />
-          <AppRouter />
+          {inited && <AppRouter />}
         </div>
       </Suspense>
     </div>
