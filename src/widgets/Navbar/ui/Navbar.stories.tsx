@@ -27,7 +27,7 @@ UserAuth.args = {};
 UserAuth.decorators = [themeDecorator(Theme.DARK), storeDecorator({
   user: {
     authData: {
-      id: 1,
+      id: '1',
       username: 'admin',
     },
   },
