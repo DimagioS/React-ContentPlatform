@@ -16,7 +16,7 @@ export interface StateSchema {
   // Async reducers
   loginForm?: LoginSchema;
   profile?: ProfileSchema;
-  article?: ArticleSchema;
+  articleDetails?: ArticleSchema;
 }
 
 export type StateSchemaKeys = keyof StateSchema;

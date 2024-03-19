@@ -4,9 +4,9 @@ import styles from './Avatar.module.scss';
 
 interface AvatarProps {
   className?: string;
-  src: string;
-  alt: string;
-  size: number;
+  src?: string;
+  alt?: string;
+  size?: number;
 }
 
 export const Avatar = memo((props: AvatarProps) => {

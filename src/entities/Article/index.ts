@@ -10,5 +10,5 @@ export type { Article } from './model/types/article';
 export type { ArticleSchema } from './model/types/articleDetailsSchema';
 
 export {
-  getArticleData, getArticleError, getArticleIsLoading,
+  getArticleDetailsData, getArticleDetailsError, getArticleDetailsIsLoading,
 } from './model/selectors/getArticleDetails';

@@ -1,20 +1,6 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { Theme } from 'app/providers/ThemeProvider/lib/ThemeContext';
-import { themeDecorator } from 'shared/config/storybook/decorators/themeDecorator';
-import { Article } from 'entities/Article';
-import { ArticleBlockType, ArticleType } from 'entities/Article/model/types/article';
-import { storeDecorator } from 'shared/config/storybook/decorators/storeDecorator';
-import ArticleDetailsPage from './ArticleDetailsPage';
-
-export default {
-  title: 'pages/ArticleDetailsPage',
-  component: ArticleDetailsPage,
-  argTypes: {
-    backgroundColor: { control: 'color' },
-  },
-} as ComponentMeta<typeof ArticleDetailsPage>;
-
-const Template: ComponentStory<typeof ArticleDetailsPage> = () => <ArticleDetailsPage />;
+import { TestAsyncThunk } from 'shared/lib/tests/TestAsyncThunk/TestAsyncThunk';
+import { fetchArticleById } from './fetchArticleById';
+import { Article, ArticleBlockType, ArticleType } from '../types/article';
 
 const data: Article = {
   id: '1',
@@ -86,16 +72,25 @@ const data: Article = {
   ],
 };
 
-export const Normal = Template.bind({});
-Normal.args = {};
-Normal.decorators = [storeDecorator({
-  articleDetails: {
-    data,
-  },
-})];
+describe('fetchArticleById', () => {
+  test('success', async () => {
+    const thunk = new TestAsyncThunk(fetchArticleById);
+    thunk.api.get.mockReturnValue(Promise.resolve({ data }));
 
-export const Dark = Template.bind({});
-Dark.args = {};
-Dark.decorators = [
-  themeDecorator(Theme.DARK),
-];
+    const result = await thunk.callThunk('1');
+
+    expect(thunk.api.get).toHaveBeenCalled();
+    expect(result.meta.requestStatus).toBe('fulfilled');
+    expect(result.payload).toEqual(data);
+  });
+
+  test('error', async () => {
+    const thunk = new TestAsyncThunk(fetchArticleById);
+    thunk.api.get.mockReturnValue(Promise.resolve({ status: 403 }));
+
+    const result = await thunk.callThunk('1');
+
+    expect(thunk.api.get).toHaveBeenCalled();
+    expect(result.meta.requestStatus).toBe('rejected');
+  });
+});

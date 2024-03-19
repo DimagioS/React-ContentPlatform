@@ -1,20 +1,22 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { Theme } from 'app/providers/ThemeProvider/lib/ThemeContext';
 import { themeDecorator } from 'shared/config/storybook/decorators/themeDecorator';
-import { Article } from 'entities/Article';
-import { ArticleBlockType, ArticleType } from 'entities/Article/model/types/article';
+import { Theme } from 'app/providers/ThemeProvider/lib/ThemeContext';
 import { storeDecorator } from 'shared/config/storybook/decorators/storeDecorator';
-import ArticleDetailsPage from './ArticleDetailsPage';
+import { Article, ArticleBlockType, ArticleType } from 'entities/Article/model/types/article';
+import { ArticleDetails } from './ArticleDetails';
 
 export default {
-  title: 'pages/ArticleDetailsPage',
-  component: ArticleDetailsPage,
+  title: 'entities/ArticleDetails',
+  component: ArticleDetails,
   argTypes: {
     backgroundColor: { control: 'color' },
   },
-} as ComponentMeta<typeof ArticleDetailsPage>;
+  args: {
+    to: '/',
+  },
+} as ComponentMeta<typeof ArticleDetails>;
 
-const Template: ComponentStory<typeof ArticleDetailsPage> = () => <ArticleDetailsPage />;
+const Template: ComponentStory<typeof ArticleDetails> = (args) => <ArticleDetails {...args} />;
 
 const data: Article = {
   id: '1',
@@ -96,6 +98,32 @@ Normal.decorators = [storeDecorator({
 
 export const Dark = Template.bind({});
 Dark.args = {};
-Dark.decorators = [
-  themeDecorator(Theme.DARK),
-];
+Dark.decorators = [themeDecorator(Theme.DARK), storeDecorator({
+  articleDetails: {
+    data,
+  },
+})];
+
+export const Plum = Template.bind({});
+Plum.args = {};
+Plum.decorators = [themeDecorator(Theme.PLUM), storeDecorator({
+  articleDetails: {
+    data,
+  },
+})];
+
+export const isLoading = Template.bind({});
+isLoading.args = {};
+isLoading.decorators = [storeDecorator({
+  articleDetails: {
+    isLoading: true,
+  },
+})];
+
+export const error = Template.bind({});
+error.args = {};
+error.decorators = [storeDecorator({
+  articleDetails: {
+    error: 'error',
+  },
+})];

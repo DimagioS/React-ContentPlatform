@@ -1,5 +1,5 @@
 import { StateSchema } from 'app/providers/StoreProvider';
 
-export const getArticleData = (state: StateSchema) => state?.article?.data;
-export const getArticleError = (state: StateSchema) => state?.article?.error;
-export const getArticleIsLoading = (state: StateSchema) => state?.article?.isLoading;
+export const getArticleDetailsData = (state: StateSchema) => state?.articleDetails?.data;
+export const getArticleDetailsError = (state: StateSchema) => state?.articleDetails?.error;
+export const getArticleDetailsIsLoading = (state: StateSchema) => state?.articleDetails?.isLoading || false;

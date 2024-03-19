@@ -1,16 +1,25 @@
-import { memo, useEffect } from 'react';
+import { memo, useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch';
 import { classNames } from 'shared/lib/classNames/classNames';
-import { Text } from 'shared/ui/Text';
+import {
+  Text, TextAlign, TextSize, TextTheme,
+} from 'shared/ui/Text';
 import { Skeleton } from 'shared/ui/Skeleton';
-import { TextAlign, TextTheme } from 'shared/ui/Text/ui/Text';
 import { DynamicModuleLoader } from 'shared/lib/components';
 import { ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { articleDetailsReducer } from 'entities/Article/model/slice/articleDetailsSlice';
+import { Avatar } from 'shared/ui/Avatar';
+import EyeIcon from 'shared/assets/icons/eye-20-20.svg';
+import CalendarIcon from 'shared/assets/icons/calendar-20-20.svg';
+import { Icon } from 'shared/ui/Icon';
+import { getArticleDetailsData, getArticleDetailsError, getArticleDetailsIsLoading } from '../../model/selectors/getArticleDetails';
+import { ArticleBlock, ArticleBlockType } from '../../model/types/article';
 import { fetchArticleById } from '../../model/services/fetchArticleById';
-import { getArticleData, getArticleError, getArticleIsLoading } from '../../model/selectors/getArticleDetails';
+import { ArticleTextBlockComponent } from '../ArticleTextBlockComponent/ArticleTextBlockComponent';
+import { ArticleCodeBlockComponent } from '../ArticleCodeBlockComponent/ArticleCodeBlockComponent';
+import { ArticleImageBlockComponent } from '../ArticleImageBlockComponent/ArticleImageBlockComponent';
 import styles from './ArticleDetails.module.scss';
 
 interface ArticleDetailsProps {
@@ -23,16 +32,31 @@ export const ArticleDetails = memo((props: ArticleDetailsProps) => {
   const { t } = useTranslation('article-details');
 
   const dispatch = useAppDispatch();
-  const data = useSelector(getArticleData);
-  const error = useSelector(getArticleError);
-  const isLoading = useSelector(getArticleIsLoading);
+  const articleDetails = useSelector(getArticleDetailsData);
+  const error = useSelector(getArticleDetailsError);
+  const isLoading = useSelector(getArticleDetailsIsLoading);
+
+  const blockGenerator = useCallback((block: ArticleBlock) => {
+    switch (block.type) {
+    case ArticleBlockType.TEXT:
+      return <ArticleTextBlockComponent key={block.id} block={block} className={styles.block} />;
+    case ArticleBlockType.CODE:
+      return <ArticleCodeBlockComponent key={block.id} block={block} className={styles.block} />;
+    case ArticleBlockType.IMAGE:
+      return <ArticleImageBlockComponent key={block.id} block={block} className={styles.block} />;
+    default:
+      return null;
+    }
+  }, []);
 
   useEffect(() => {
-    dispatch(fetchArticleById(id));
+    if (__PROJECT__ !== 'storybook') {
+      dispatch(fetchArticleById(id));
+    }
   }, [dispatch, id]);
 
   const initialReducers: ReducersList = {
-    article: articleDetailsReducer,
+    articleDetails: articleDetailsReducer,
   };
 
   let content;
@@ -56,7 +80,34 @@ export const ArticleDetails = memo((props: ArticleDetailsProps) => {
       />
     );
   } else {
-    content = <div>Article Details</div>;
+    content = (
+      <>
+        <div className={styles.avatarWrapper}>
+          <Avatar
+            size={200}
+            src={articleDetails?.img}
+            className={styles.avatar}
+          />
+        </div>
+        <Text
+          className={styles.title}
+          title={articleDetails?.title}
+          text={articleDetails?.subtitle}
+          size={TextSize.L}
+        />
+        <div>
+          <div className={styles.articleInfo}>
+            <Icon Svg={EyeIcon} className={styles.icon} />
+            <Text text={String(articleDetails?.views)} />
+          </div>
+          <div className={styles.articleInfo}>
+            <Icon Svg={CalendarIcon} className={styles.icon} />
+            <Text text={articleDetails?.createdAt} />
+          </div>
+        </div>
+        {articleDetails?.blocks.map(blockGenerator)}
+      </>
+    );
   }
 
   return (

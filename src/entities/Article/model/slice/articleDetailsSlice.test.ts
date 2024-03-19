@@ -1,20 +1,7 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { Theme } from 'app/providers/ThemeProvider/lib/ThemeContext';
-import { themeDecorator } from 'shared/config/storybook/decorators/themeDecorator';
-import { Article } from 'entities/Article';
-import { ArticleBlockType, ArticleType } from 'entities/Article/model/types/article';
-import { storeDecorator } from 'shared/config/storybook/decorators/storeDecorator';
-import ArticleDetailsPage from './ArticleDetailsPage';
-
-export default {
-  title: 'pages/ArticleDetailsPage',
-  component: ArticleDetailsPage,
-  argTypes: {
-    backgroundColor: { control: 'color' },
-  },
-} as ComponentMeta<typeof ArticleDetailsPage>;
-
-const Template: ComponentStory<typeof ArticleDetailsPage> = () => <ArticleDetailsPage />;
+import { fetchArticleById } from '../services/fetchArticleById';
+import { Article, ArticleBlockType, ArticleType } from '../types/article';
+import { ArticleSchema } from '../types/articleDetailsSchema';
+import { articleDetailsReducer } from './articleDetailsSlice';
 
 const data: Article = {
   id: '1',
@@ -86,16 +73,27 @@ const data: Article = {
   ],
 };
 
-export const Normal = Template.bind({});
-Normal.args = {};
-Normal.decorators = [storeDecorator({
-  articleDetails: {
-    data,
-  },
-})];
+describe('LoginSlice', () => {
+  test('test fetch article by id service pending', () => {
+    const state: DeepPartial<ArticleSchema> = {
+      isLoading: false,
+      error: 'error',
+    };
 
-export const Dark = Template.bind({});
-Dark.args = {};
-Dark.decorators = [
-  themeDecorator(Theme.DARK),
-];
+    expect(articleDetailsReducer(state as ArticleSchema, fetchArticleById.pending)).toEqual({
+      isLoading: true,
+      error: undefined,
+    });
+  });
+
+  test('test fetch article by id service fulfilleld', () => {
+    const state: DeepPartial<ArticleSchema> = {
+      isLoading: true,
+    };
+
+    expect(articleDetailsReducer(state as ArticleSchema, fetchArticleById.fulfilled(data, '', ''))).toEqual({
+      isLoading: false,
+      data,
+    });
+  });
+});
