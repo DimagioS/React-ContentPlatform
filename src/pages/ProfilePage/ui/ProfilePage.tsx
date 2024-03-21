@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect } from 'react';
+import { memo, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import {
   ProfileCard,
@@ -19,6 +19,7 @@ import { Cuontry } from 'entities/Country';
 import { Text } from 'shared/ui/Text';
 import { TextTheme } from 'shared/ui/Text/ui/Text';
 import { useTranslation } from 'react-i18next';
+import { useInitialEffect } from 'shared/lib/hooks/useInitialEffect';
 import { ProfilePageHeader } from './ProfilePageHeader/ProfilePageHeader';
 
 const ProfilePage = memo(() => {
@@ -42,14 +43,9 @@ const ProfilePage = memo(() => {
     [ValidateProfileErrors.SERVER_ERROR]: t('Серверная ошибка при сохранении'),
   };
 
-  useEffect(() => {
-    if (__PROJECT__ !== 'storybook') {
-      console.log(error);
-
-      dispatch(fetchProfileData());
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch]);
+  useInitialEffect(() => {
+    dispatch(fetchProfileData());
+  });
 
   const onChangefirst = useCallback((value?: string) => {
     dispatch(profileActions.updateProfile({ first: value || '' }));
