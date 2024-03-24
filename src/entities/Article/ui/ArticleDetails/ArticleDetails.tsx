@@ -8,13 +8,13 @@ import {
 } from 'shared/ui/Text';
 import { Skeleton } from 'shared/ui/Skeleton';
 import { DynamicModuleLoader } from 'shared/lib/components';
-import { ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { articleDetailsReducer } from 'entities/Article/model/slice/articleDetailsSlice';
 import { Avatar } from 'shared/ui/Avatar';
 import EyeIcon from 'shared/assets/icons/eye-20-20.svg';
 import CalendarIcon from 'shared/assets/icons/calendar-20-20.svg';
 import { Icon } from 'shared/ui/Icon';
 import { useInitialEffect } from 'shared/lib/hooks/useInitialEffect';
+import { ReducersList } from 'app/providers/StoreProvider';
 import { getArticleDetailsData, getArticleDetailsError, getArticleDetailsIsLoading } from '../../model/selectors/getArticleDetails';
 import { ArticleBlock, ArticleBlockType } from '../../model/types/article';
 import { fetchArticleById } from '../../model/services/fetchArticleById';
@@ -24,9 +24,13 @@ import { ArticleImageBlockComponent } from '../ArticleImageBlockComponent/Articl
 import styles from './ArticleDetails.module.scss';
 
 interface ArticleDetailsProps {
-  className?: string,
-  id: string
+  className?: string;
+  id: string;
 }
+
+const initialReducers: ReducersList = {
+  articleDetails: articleDetailsReducer,
+};
 
 export const ArticleDetails = memo((props: ArticleDetailsProps) => {
   const { id, className } = props;
@@ -53,10 +57,6 @@ export const ArticleDetails = memo((props: ArticleDetailsProps) => {
   useInitialEffect(() => {
     dispatch(fetchArticleById(id));
   });
-
-  const initialReducers: ReducersList = {
-    articleDetails: articleDetailsReducer,
-  };
 
   let content;
 
@@ -110,7 +110,7 @@ export const ArticleDetails = memo((props: ArticleDetailsProps) => {
   }
 
   return (
-    <DynamicModuleLoader reducers={initialReducers} removeAfterUnmount>
+    <DynamicModuleLoader reducers={initialReducers}>
       <div className={classNames(styles.ArticleDetails, {}, [className])}>
         {content}
       </div>

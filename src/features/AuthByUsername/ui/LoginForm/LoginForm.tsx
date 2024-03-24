@@ -8,8 +8,8 @@ import { ButtonTheme } from 'shared/ui/Button/ui/Button';
 import { Text } from 'shared/ui/Text';
 import { TextTheme } from 'shared/ui/Text/ui/Text';
 import { DynamicModuleLoader } from 'shared/lib/components';
-import { ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch';
+import { ReducersList } from 'app/providers/StoreProvider';
 import { loginByUsername } from '../../model/services/loginByUsername/loginByUsername';
 import { loginActions, loginReducer } from '../../model/slice/loginSlice';
 import { getLoginUsername } from '../../model/selectors/getLoginUsername/getLoginUsername';
@@ -23,6 +23,10 @@ interface LoginFormProps {
   onSuccess: () => void;
 }
 
+const initialReducers: ReducersList = {
+  loginForm: loginReducer,
+};
+
 const LoginForm = memo(({ className, onSuccess }: LoginFormProps) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
@@ -31,10 +35,6 @@ const LoginForm = memo(({ className, onSuccess }: LoginFormProps) => {
   const password = useSelector(getLoginPassword);
   const isLoading = useSelector(getLoginIsLoading);
   const error = useSelector(getLoginError);
-
-  const initialReducers: ReducersList = {
-    loginForm: loginReducer,
-  };
 
   const onChangeUsername = useCallback((value: string) => {
     dispatch(loginActions.setUsername(value));
@@ -53,7 +53,7 @@ const LoginForm = memo(({ className, onSuccess }: LoginFormProps) => {
   }, [dispatch, password, onSuccess, username]);
 
   return (
-    <DynamicModuleLoader reducers={initialReducers} removeAfterUnmount>
+    <DynamicModuleLoader reducers={initialReducers}>
       <div className={classNames(styles.LoginForm, {}, [className])}>
         <Text
           title={t('Форма авторизации')}

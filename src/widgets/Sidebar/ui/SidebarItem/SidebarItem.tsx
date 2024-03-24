@@ -10,7 +10,7 @@ import styles from './SidebarItem.module.scss';
 
 interface SidebarItemProps {
   item: SidebarItemType;
-  collapsed: boolean,
+  collapsed: boolean;
 }
 
 export const SidebarItem = memo((props: SidebarItemProps) => {

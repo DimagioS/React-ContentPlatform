@@ -7,8 +7,8 @@ import { TextAlign } from 'shared/ui/Text/ui/Text';
 import styles from './ArticleImageBlockComponent.module.scss';
 
 interface ArticleImageBlockComponentProps {
-  className?: string,
-  block: ArticleImageBlock
+  className?: string;
+  block: ArticleImageBlock;
 }
 
 export const ArticleImageBlockComponent = memo((props: ArticleImageBlockComponentProps) => {

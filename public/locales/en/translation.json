@@ -19,5 +19,7 @@
   "Имя пользователя": "User name",
   "Пароль": "Password",
   "Форма авторизации": "Auth form",
-  "Вы ввели неверный логин и пароль": "Uncorrect username or password"
+  "Вы ввели неверный логин и пароль": "Uncorrect username or password",
+  "Введите текст комментария": "Enter comment text",
+  "Отправить": "Send"
 }

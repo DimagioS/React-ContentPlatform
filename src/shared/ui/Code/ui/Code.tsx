@@ -7,7 +7,7 @@ import styles from './Code.module.scss';
 
 interface CodeProps {
   className?: string;
-  code: string
+  code: string;
 }
 
 export const Code = memo((props: CodeProps) => {

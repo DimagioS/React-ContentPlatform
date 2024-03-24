@@ -12,7 +12,6 @@ import {
 } from 'entities/Profile';
 import { profileActions, profileReducer } from 'entities/Profile/model/slice/profileSlice';
 import { DynamicModuleLoader } from 'shared/lib/components';
-import { ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch';
 import { Currency } from 'entities/Currency';
 import { Cuontry } from 'entities/Country';
@@ -20,7 +19,13 @@ import { Text } from 'shared/ui/Text';
 import { TextTheme } from 'shared/ui/Text/ui/Text';
 import { useTranslation } from 'react-i18next';
 import { useInitialEffect } from 'shared/lib/hooks/useInitialEffect';
+import { useParams } from 'react-router-dom';
+import { ReducersList } from 'app/providers/StoreProvider';
 import { ProfilePageHeader } from './ProfilePageHeader/ProfilePageHeader';
+
+const initialReducers: ReducersList = {
+  profile: profileReducer,
+};
 
 const ProfilePage = memo(() => {
   const dispatch = useAppDispatch();
@@ -31,10 +36,7 @@ const ProfilePage = memo(() => {
   const error = useSelector(getProfileError);
   const readonly = useSelector(getProfileReadonly);
   const validateErrors = useSelector(getProfileValidateErrors);
-
-  const initialReducers: ReducersList = {
-    profile: profileReducer,
-  };
+  const { id } = useParams<{id: string}>();
 
   const validateErrorTranslation = {
     [ValidateProfileErrors.INCORRECT_USER_DATA]: t('Имя и фамилия обязательны'),
@@ -44,7 +46,9 @@ const ProfilePage = memo(() => {
   };
 
   useInitialEffect(() => {
-    dispatch(fetchProfileData());
+    if (id) {
+      dispatch(fetchProfileData(id));
+    }
   });
 
   const onChangefirst = useCallback((value?: string) => {
@@ -80,7 +84,7 @@ const ProfilePage = memo(() => {
   }, [dispatch]);
 
   return (
-    <DynamicModuleLoader reducers={initialReducers} removeAfterUnmount>
+    <DynamicModuleLoader reducers={initialReducers}>
       <ProfilePageHeader readonly={readonly} />
       {validateErrors?.length > 0 && (
         validateErrors.map((err) => (
