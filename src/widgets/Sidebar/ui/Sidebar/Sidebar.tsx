@@ -1,11 +1,12 @@
 /* eslint-disable react/button-has-type */
-import { memo, useState } from 'react';
+import { memo, useMemo, useState } from 'react';
 import { Button } from 'shared/ui/Button';
 import { ThemeSwitcher } from 'widgets/ThemeSwitcher';
 import { LangSwitcher } from 'widgets/LangSwitcher';
 import { classNames } from 'shared/lib/classNames/classNames';
 import { ButtonSize, ButtonTheme } from 'shared/ui/Button/ui/Button';
-import { SidebarItemsList } from 'widgets/Sidebar/model/items';
+import { useSelector } from 'react-redux';
+import { getSidebarItems } from '../../model/selectors/getSidebarItems';
 import { SidebarItem } from '../SidebarItem/SidebarItem';
 import styles from './Sidebar.module.scss';
 
@@ -15,10 +16,21 @@ interface SidebarProps {
 
 export const Sidebar = memo(({ className }: SidebarProps) => {
   const [collapsed, setCollapsed] = useState(false);
+  const sidebarItems = useSelector(getSidebarItems);
 
   const onToggle = () => {
     setCollapsed((prev) => !prev);
   };
+
+  const itemsList = useMemo(() => (
+    sidebarItems.map((item) => (
+      <SidebarItem
+        key={item.path}
+        item={item}
+        collapsed={collapsed}
+      />
+    ))
+  ), [collapsed, sidebarItems]);
 
   return (
     <div
@@ -26,13 +38,7 @@ export const Sidebar = memo(({ className }: SidebarProps) => {
       className={classNames(styles.Sidebar, { [styles.collapsed]: collapsed }, [className])}
     >
       <div className={styles.links}>
-        {SidebarItemsList.map((item) => (
-          <SidebarItem
-            key={item.path}
-            item={item}
-            collapsed={collapsed}
-          />
-        ))}
+        {itemsList}
       </div>
 
       <Button
