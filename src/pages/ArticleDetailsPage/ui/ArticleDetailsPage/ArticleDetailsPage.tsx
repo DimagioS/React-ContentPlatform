@@ -2,7 +2,7 @@ import { ArticleDetails } from 'entities/Article';
 import { CommentList } from 'entities/Comment';
 import { memo, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { classNames } from 'shared/lib/classNames/classNames';
 import { Text } from 'shared/ui/Text';
 import { DynamicModuleLoader } from 'shared/lib/components';
@@ -11,6 +11,9 @@ import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch';
 import { useInitialEffect } from 'shared/lib/hooks/useInitialEffect';
 import { AddCommentForm } from 'features/AddCommentForm';
 import { ReducersList } from 'app/providers/StoreProvider';
+import { Button } from 'shared/ui/Button';
+import { ButtonTheme } from 'shared/ui/Button/ui/Button';
+import { RoutePath } from 'shared/config/routeConfig/routeConfig';
 import { addCommentForArticle } from '../../model/services/addCommentForArticle/addCommentForArticle';
 import { fetchCommentsByArticleId } from '../../model/services/fetchCommentsByArticleId/fetchCommentsByArticleId';
 import { getCommentsIsLoading } from '../../model/selectors/comments';
@@ -32,6 +35,11 @@ const ArticleDetailsPage = memo((props: ArticleDetailsPageProps) => {
   const comments = useSelector(getArticleComments.selectAll);
   const commentsIsLoading = useSelector(getCommentsIsLoading);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const onBackToList = useCallback(() => {
+    navigate(RoutePath.articles);
+  }, [navigate]);
 
   useInitialEffect(() => {
     if (id) {
@@ -54,6 +62,9 @@ const ArticleDetailsPage = memo((props: ArticleDetailsPageProps) => {
   return (
     <DynamicModuleLoader reducers={initialReducers}>
       <div className={classNames(styles.ArticleDetailsPage, {}, [className])}>
+        <Button theme={ButtonTheme.OUTLINE} onClick={onBackToList}>
+          {t('Назад к списку')}
+        </Button>
         <ArticleDetails id={id} />
         <Text title={t('Комментарии')} className={styles.commentTitle} />
         <AddCommentForm onSendComment={onSendHandler} />
